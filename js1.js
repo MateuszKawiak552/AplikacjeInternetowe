@@ -271,65 +271,34 @@ function loadTasks() {
 
 addButton.addEventListener('click', addTask);
 
-// pole wyszukiwarki
 
-searchInput.addEventListener('input', () =>
 
-{
+// Funkcja do wyszukiwania i podświetlania fraz
+function searchAndHighlight(searchPhrase) {
+    const normalizedSearchPhrase = searchPhrase.toLowerCase();
 
-    const searchPhrase = searchInput.value;
+    for (const taskItem of taskList.children) {
+        const taskLabel = taskItem.querySelector('label');
+        const taskText = taskLabel.textContent.toLowerCase();
 
-   
-
- 
-
-    for (const taskItem of taskList.children)
-
-     {
-
-                  // Dodaj obsługę usuwania
-
-                  const deleteButton = document.createElement('button');
-
-                  deleteButton.textContent = 'Usuń';
-
-                  deleteButton.addEventListener('click', () => {
-
-                      deleteTask(taskItem);
-
-                  });
-
-                 
-
-        const taskText = taskItem.textContent;
-
-       
-
-        if (taskText.includes(searchPhrase)) {
-
-            // Wyróżnij znalezione frazy
-
-            taskItem.innerHTML = taskText.replace(searchPhrase, `<span class="highlight">${searchPhrase}</span>`).slice(0, -4);
+        if (taskText.includes(normalizedSearchPhrase)) {
+            // Wyróżnij znalezione frazy na żółto
+            taskLabel.innerHTML = taskText.replace(new RegExp(normalizedSearchPhrase, 'g'), match => {
+                return `<span class="highlight">${match}</span>`;
+            });
 
             taskItem.style.display = 'list-item';
-
-            taskItem.appendChild(deleteButton);
-
         } else {
-
-            taskItem.innerHTML = taskItem.textContent; // Przywróć oryginalną zawartość zadania
-
+            taskLabel.innerHTML = taskLabel.textContent;
             taskItem.style.display = 'none';
-
         }
-
     }
+}
 
-    taskItem.appendChild(deleteButton);
-
+searchInput.addEventListener('input', () => {
+    const searchPhrase = searchInput.value;
+    searchAndHighlight(searchPhrase);
 });
-
- 
 
  
 
