@@ -11,6 +11,11 @@ div{
 
 }
 
+.highlight {
+    background-color: yellow;
+    font-weight: bold;
+}
+
 ul{
 
     background-color: rgb(179, 79, 79);
