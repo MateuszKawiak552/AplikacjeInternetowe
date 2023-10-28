@@ -1,307 +1,131 @@
-// Pobieranie elementów z dokumentu
-
-const taskList = document.getElementById('task-list');
-
-const searchInput = document.getElementById('search');
-
-const newTaskInput = document.getElementById('new-task');
-
-const dueDateInput = document.getElementById('due-date');
-
-const addButton = document.getElementById('add-button');
-
- 
-
-// Funkcja walidacji nowych zadań
-
-function validateTask(taskText, dueDate)
-
-{
-
-    if (taskText.length < 3 || taskText.length > 255)
-
-    {
-
+class ToDoList {
+    constructor() {
+      this.taskList = document.getElementById('task-list');
+      this.searchInput = document.getElementById('search');
+      this.newTaskInput = document.getElementById('new-task');
+      this.dueDateInput = document.getElementById('due-date');
+      this.addButton = document.getElementById('add-button');
+      this.loadTasks();
+  
+      this.addButton.addEventListener('click', this.addTask.bind(this));
+      this.searchInput.addEventListener('input', this.handleSearchInput.bind(this));
+    }
+  
+    validateTask(taskText, dueDate) {
+      if (taskText.length < 3 || taskText.length > 255) {
         return false;
-
+      }
+      const now = new Date();
+      const selectedDate = new Date(dueDate);
+      return selectedDate.toString() !== 'Invalid Date' && selectedDate > now;
     }
-
-    const now = new Date();
-
-    const selectedDate = new Date(dueDate);
-
-    return selectedDate === "Invalid Date" || selectedDate > now;
-
-}
-
- 
-
-// Funkcja dodawania nowego zadania
-
-function addTask() {
-
-    const taskText = newTaskInput.value;
-
-    const dueDate = dueDateInput.value;
-
-   
-
-    if (validateTask(taskText, dueDate))
-
-    {
-
-        // Utwórz element zadania z checkboxem
-
- 
-
+  
+    addTask() {
+      const taskText = this.newTaskInput.value;
+      const dueDate = this.dueDateInput.value;
+  
+      if (this.validateTask(taskText, dueDate)) {
+        // Tworzenie elementu zadania z checkboxem
         const taskItem = document.createElement('li');
-
         const taskLabel = document.createElement('label');
-
         const checkbox = document.createElement('input');
-
         checkbox.type = 'checkbox';
-
- 
-
- 
-
+  
         taskLabel.appendChild(checkbox);
-
         taskLabel.innerHTML += ` ${taskText} Data: ${dueDate}`;
-
         taskItem.appendChild(taskLabel);
-
- 
-
-        // Dodaj obsługę usuwania
-
+  
+        // Dodawanie obsługi usuwania
         const deleteButton = document.createElement('button');
-
         deleteButton.textContent = 'Usuń';
-
-        deleteButton.addEventListener('click', () => {
-
-            deleteTask(taskItem);
-
-        });
-
- 
-
-        // Dodaj obsługę edycji
-
+        deleteButton.addEventListener('click', () => this.deleteTask(taskItem));
         taskLabel.addEventListener('click', () => {
-
-            taskLabel.contentEditable = true;
-
-            taskLabel.focus();
-
-            saveTasks();
-
+          taskLabel.contentEditable = true;
+          taskLabel.focus();
+          this.saveTasks();
         });
-
- 
-
- 
-
         taskLabel.addEventListener('blur', () => {
-
-            taskLabel.contentEditable = false;
-
-            saveTasks();
-
+          taskLabel.contentEditable = false;
+          this.saveTasks();
         });
-
- 
-
-        taskItem.appendChild(taskLabel);
-
         taskItem.appendChild(deleteButton);
-
- 
-
-        // Dodaj element zadania z prawej strony
-
-        taskList.appendChild(taskItem);
-
- 
-
-        // Wyczyszczenie pól
-
-        newTaskInput.value = '';
-
-        dueDateInput.value = '';
-
- 
-
-        // Zapisz listę w Local Storage
-
- 
-
-        saveTasks();
-
-    } else
-
-    {
-
-        alert('Błąd walidacji zadania. Pewnie jakiś czas albo nazwa');
-
+        this.taskList.appendChild(taskItem);
+        this.saveTasks();
+        this.newTaskInput.value = '';
+        this.dueDateInput.value = '';
+      } else {
+        alert('Błąd walidacji zadania. Sprawdź długość lub datę.');
+      }
     }
-
-}
-
- 
-
-//Funkcja usuwania zadania
-
-function deleteTask(taskItem) {
-
-    taskList.removeChild(taskItem);
-
-    saveTasks();
-
-}
-
- 
-
-// Funkcja zapisywania listy zadań w Local Storage
-
-function saveTasks() {
-
-    const tasks = [];
-
-    for (const taskItem of taskList.children) {
-
+  
+    deleteTask(taskItem) {
+      this.taskList.removeChild(taskItem);
+      this.saveTasks();
+    }
+  
+    saveTasks() {
+      const tasks = [];
+      for (const taskItem of this.taskList.children) {
         tasks.push({
-
-            text: taskItem.textContent,
-
-            dueDate: taskItem.dataset.dueDate
-
+          text: taskItem.textContent,
+          dueDate: taskItem.dataset.dueDate,
         });
-
+      }
+      localStorage.setItem('tasks', JSON.stringify(tasks));
     }
-
-    localStorage.setItem('tasks', JSON.stringify(tasks));
-
-}
-
- 
-
-// Funkcja wczytująca listę zadań z Local Storage
-
-function loadTasks() {
-
-    const savedTasks = localStorage.getItem('tasks');
-
-    if (savedTasks) {
-
+  
+    loadTasks() {
+      const savedTasks = localStorage.getItem('tasks');
+      if (savedTasks) {
         const tasks = JSON.parse(savedTasks);
-
         for (const task of tasks) {
-
-            const taskItem = document.createElement('li');
-
-            const taskLabel = document.createElement('label');
-
-            const checkbox = document.createElement('input');
-
-            checkbox.type = 'checkbox';
-
-            taskLabel.appendChild(checkbox);
-
-            taskLabel.innerHTML += `${task.text}`.slice(0, -4); // Usuń
-
- 
-
- 
-
-            // Obsługa usuwania
-
-            const deleteButton = document.createElement('button');
-
-            deleteButton.textContent = 'usuń';
-
-            deleteButton.addEventListener('click', () => {
-
-                deleteTask(taskItem);
-
-            });
-
- 
-
-            // Obsługa edycji
-
-            taskLabel.addEventListener('click', () => {
-
-                taskLabel.contentEditable = true;
-
-                taskLabel.focus();
-
-            });
-
- 
-
-            taskLabel.addEventListener('blur', () => {
-
-                taskLabel.contentEditable = false;
-
-                saveTasks();
-
-            });
-
- 
-
-            taskItem.appendChild(taskLabel);
-
-            taskItem.appendChild(deleteButton);
-
-            taskList.appendChild(taskItem);
-
+          const taskItem = document.createElement('li');
+          const taskLabel = document.createElement('label');
+          const checkbox = document.createElement('input');
+          checkbox.type = 'checkbox';
+          taskLabel.appendChild(checkbox);
+          taskLabel.innerHTML += `${task.text}`.slice(0, -4); // Usuń " Data: ..."
+          const deleteButton = document.createElement('button');
+          deleteButton.textContent = 'Usuń';
+          deleteButton.addEventListener('click', () => this.deleteTask(taskItem));
+          taskLabel.addEventListener('click', () => {
+            taskLabel.contentEditable = true;
+            taskLabel.focus();
+          });
+          taskLabel.addEventListener('blur', () => {
+            taskLabel.contentEditable = false;
+            this.saveTasks();
+          });
+          taskItem.appendChild(taskLabel);
+          taskItem.appendChild(deleteButton);
+          this.taskList.appendChild(taskItem);
         }
-
+      }
     }
-
-}
-
- 
-
- 
-
-
-addButton.addEventListener('click', addTask);
-
-
-
-// Funkcja do wyszukiwania i podświetlania fraz
-function searchAndHighlight(searchPhrase) {
-    const normalizedSearchPhrase = searchPhrase.toLowerCase();
-
-    for (const taskItem of taskList.children) {
+  
+    handleSearchInput() {
+      const searchPhrase = this.searchInput.value;
+      this.searchAndHighlight(searchPhrase);
+    }
+  
+    searchAndHighlight(searchPhrase) {
+      const normalizedSearchPhrase = searchPhrase.toLowerCase();
+      for (const taskItem of this.taskList.children) {
         const taskLabel = taskItem.querySelector('label');
         const taskText = taskLabel.textContent.toLowerCase();
-
         if (taskText.includes(normalizedSearchPhrase)) {
-            // Wyróżnij znalezione frazy na żółto
-            taskLabel.innerHTML = taskText.replace(new RegExp(normalizedSearchPhrase, 'g'), match => {
-                return `<span class="highlight">${match}</span>`;
-            });
-
-            taskItem.style.display = 'list-item';
+          taskLabel.innerHTML = taskText.replace(new RegExp(normalizedSearchPhrase, 'g'), match => {
+            return `<span class="highlight">${match}</span>`;
+          });
+          taskItem.style.display = 'list-item';
         } else {
-            taskLabel.innerHTML = taskLabel.textContent;
-            taskItem.style.display = 'none';
+          taskLabel.innerHTML = taskLabel.textContent;
+          taskItem.style.display = 'none';
         }
+      }
     }
-}
-
-searchInput.addEventListener('input', () => {
-    const searchPhrase = searchInput.value;
-    searchAndHighlight(searchPhrase);
-});
-
- 
-
-// Wczytaj listę zadań z Local Storage po załadowaniu strony
-
-window.addEventListener('load', loadTasks);
+  }
+  
+  // Inicjalizacja klasy
+  const taskListManager = new ToDoList();
+  
