@@ -1,0 +1,93 @@
+
+body{
+
+    background-color:rgb(182, 148, 148);
+
+}
+
+div{
+
+    text-align: center;
+
+}
+
+ul{
+
+    background-color: rgb(179, 79, 79);
+
+     border:2px solid black ;
+
+     border-radius: 300px;
+
+     list-style-type: decimal;
+
+     text-align: left;
+
+}
+
+#task-list {
+
+    background-color: rgb(179, 79, 79);
+
+    border: 2px solid black;
+
+    border-radius: 10px;
+
+    list-style-type: decimal;
+
+}
+
+ 
+
+#add-task {
+
+    margin-top: 20px;
+
+}
+
+ 
+
+
+#add-button {
+
+    background-color: #4CAF50;
+
+    color: white;
+
+    border: none;
+
+    border-radius: 5px;
+
+    padding: 5px 10px;
+
+    cursor: pointer;
+
+}
+
+ 
+
+input[type="text"], input[type="datetime-local"] {
+
+    width: 200px;
+
+    padding: 5px;
+
+    margin-right: 10px;
+
+}
+
+ 
+
+#search {
+
+    margin-top: 10px;
+
+    padding: 5px;
+
+    border: 2px solid #4CAF50;
+
+    border-radius: 5px;
+
+}
+
+ 
