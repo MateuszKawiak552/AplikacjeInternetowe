@@ -1,0 +1,39 @@
+body {
+    background-color: #fdd835;
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+* {
+    box-sizing: border-box;
+}
+
+#mapka {
+    height: 600px;
+    width: 40%;
+    border: 1px solid black;
+}
+
+#Przesuwacz 
+{
+    height: 600px;
+    width: 40%;
+    border: 1px solid black;
+    position: absolute;
+    top: 9px;
+    right: 6px;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+}
+#controls button {
+    background-color: #4caf50;
+    color: green;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+}
