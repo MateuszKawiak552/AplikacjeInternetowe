@@ -1,0 +1,130 @@
+
+body, h1, h2, h3, p, ul, li {
+    margin: 0;
+    padding: 0;
+}
+
+
+header {
+    background-image: url(piano-1835179_1920.jpg);
+    color: #fff;
+    text-align: right;
+    padding: 20px;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+h1 {
+    color:gray;
+    font-size: 36px;
+    font-family: 'Times New Roman', serif;
+}
+
+
+section {
+    padding: 20px;
+    text-align: center;
+  
+}
+
+article {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    margin-bottom: 20px;
+    padding: 20px;
+    text-align: center; 
+}
+
+h2 {
+    font-size: 24px;
+    font-family: 'Times New Roman', serif;
+    text-transform: capitalize;
+    margin-bottom: 5px;
+}
+
+h3 {
+    font-size: 20px;
+    font-family: 'Times New Roman', serif;
+    margin-bottom: 10px;
+}
+
+p {
+    font-size: 16px;
+    font-family: Arial, sans-serif;
+    color:purple;
+    
+}
+
+ol {
+    margin-right: 0px;
+    font-size: 16px;
+    font-family: Arial, sans-serif;
+    list-style: decimal;
+}
+
+li {
+    list-style-type: disc;
+    margin-right: 10px;
+    color:black;
+}
+
+
+footer {
+    background-color: #222;
+    color: #fff;
+    text-align: center;
+    padding: 10px;
+}
+
+/* Styl linku */
+a {
+    color: #0077cc;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+    color: green;
+
+}
+p:hover {
+    text-decoration: underline;
+    color: green;
+
+}
+
+
+@media (max-width: 600px) {
+    header {
+        background-size: cover;
+        color:antiquewhite; 
+        text-align:right ;
+        font-family:italic;
+    }
+
+    h1 {
+        font-size: 22px; 
+        color:antiquewhite;
+        text-align:right ;
+        font-family:italic;
+    }
+
+    h2, h3 {
+        font-size: 20px; /* Mniejsza czcionka na małych ekranach */
+        text-align:right ;
+        font-family:italic;
+    }
+
+    p, ul, li {
+        font-size: 14px; /* Mniejsza czcionka na małych ekranach */
+    }
+}
+
+/* Dodatkowe media query dla średnich ekranów (np. tablety) */
+@media (min-width: 601px) and (max-width: 1024px) {
+    h1 {
+        font-size: 30px;
+        color:purple;/* Inna czcionka na średnich ekranach */
+        font-family:italic;
+        text-align: right;
+    }
+}

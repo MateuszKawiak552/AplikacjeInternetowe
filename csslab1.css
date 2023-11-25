@@ -1,0 +1,130 @@
+
+html, body, h1, h2, h3, p, ul, li, a {
+    margin: 0;
+    padding: 0;
+}
+
+
+body {
+    background-image:url(disko.jpg) ;
+    color: white;
+    font-family: Arial, sans-serif;
+}
+
+
+header {
+    text-align: center;
+    padding: 10px;
+    background-color: #ff1493; 
+    font-family:system-ui;
+}
+
+h1 {
+    color:whitesmoke;
+    font-size: 46px;
+    text-transform: uppercase;
+    font-family: Helvetica;
+}
+
+
+section {
+    margin: 20px;
+}
+
+article {
+    background-color: #4b0082;
+    color: white;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 1px; 
+}
+
+h2 {
+    font-size: 14px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+}
+
+h3 {
+    font-size: 15px;
+    text-transform: uppercase;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande';
+    margin-bottom: 20px;
+}
+
+
+p {
+    background-color: #5c4868;
+    color: black;
+    padding: 10px; 
+    border-radius: 100px; 
+    font-family: 'Times New Roman', Times, serif;
+}
+
+
+ol {
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    list-style: lower-greek;
+    margin-left: 10px;
+}
+
+li {
+    list-style-type: circle;
+    margin-left: 20px;
+    color:purple;
+}
+
+a {
+    color: #ff1493; 
+    text-decoration: none;
+}
+
+
+footer {
+    text-align: center;
+    background-color: #ff1493; 
+    padding: 5px;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+footer a {
+    color: white;
+    text-decoration: underline;
+}
+
+
+a:hover {
+    text-decoration: underline;
+}
+p:hover {
+    text-decoration:wavy;
+    color:white;
+ 
+
+}
+
+@media (max-width: 600px) {
+    header {
+        background-size: cover;
+        color:antiquewhite 
+    }
+
+    h1 {
+        text-decoration: underline;
+        font-size: 24px; 
+        color:green;
+    }
+
+    h2, h3 {
+        font-size: 20px; 
+    }
+
+}
+
+
+@media (min-width: 601px) and (max-width: 1024px) {
+    h1 {
+        font-size: 30px;
+        color:yellow;
+    }
+}
